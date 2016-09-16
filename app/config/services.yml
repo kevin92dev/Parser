@@ -1,0 +1,12 @@
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/book/service_container.html
+parameters:
+#    parameter_name: value
+
+services:
+    app.parser:
+            class: AppBundle\Service\ParserService
+            public: true
+            arguments: ['@doctrine.orm.entity_manager']
+            tags:
+                - { name: feed.parser }
