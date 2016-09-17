@@ -81,7 +81,7 @@ EOT;
         $channel = $serializer->deserialize($xml, 'AppBundle\Entity\Channel', 'xml');
 
         foreach ($channel->getItems() as $item) {
-            $product = $this->createOrUpdateProduct($item);
+            $product = $this->createOrUpdateProduct($output, $item);
 
             // Persist data
             $this->em->persist($product);
