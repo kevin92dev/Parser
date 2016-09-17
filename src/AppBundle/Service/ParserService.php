@@ -1,11 +1,21 @@
 <?php
 
+/*
+ * This file is part of the Parser package.
+ *
+ * (c) Kevin Murillo <kevin92dev@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace AppBundle\Service;
 
 use AppBundle\Entity\Product;
 use AppBundle\Entity\Item;
 use Doctrine\ORM\EntityManager;
 use JMS\Serializer\SerializerBuilder;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class ParserService
 {
@@ -82,16 +92,20 @@ EOT;
     /**
      * Check if product exists and update it. If not exist, then create it
      *
-     * @param Item $item The item collected from XML.
+     * @param OutputInterface $output The output interface, for show messages
+     * @param Item            $item   The item collected from XML.
      *
      * @return Product Return a product instance
      */
-    public function createOrUpdateProduct(Item $item)
+    public function createOrUpdateProduct(OutputInterface $output, Item $item)
     {
         $product = $this->em->getRepository('AppBundle:Product')->findOneBy(array('ean' => $item->getEan()));
 
         if (!$product instanceof Product) {
             $product = new Product();
+            $output->writeln('New product added.');
+        } else {
+            $output->writeln('Updated product with ID: '.$product->getId());
         }
 
         $product->setTitle($item->getTitle());
