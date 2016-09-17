@@ -5,3 +5,9 @@ services:
     app.parser:
         class: AppBundle\Service\ParserService
         arguments: ['@doctrine.orm.entity_manager', '@app.serializer']
+
+    app.stock.listener:
+            class: AppBundle\EventListener\StockListener
+            arguments: ['@service_container']
+            tags:
+              - { name: doctrine.event_listener, event: postPersist }

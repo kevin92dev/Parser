@@ -58,6 +58,11 @@ class Product
     private $customId;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    private $stock = 0;
+
+    /**
      * @return mixed
      */
     public function getId()
@@ -199,5 +204,21 @@ class Product
     public function setCustomId($customId)
     {
         $this->customId = $customId;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStock()
+    {
+        return $this->stock;
+    }
+
+    /**
+     * @param mixed $stock
+     */
+    public function setStock($stock)
+    {
+        $this->stock = $stock;
     }
 }
