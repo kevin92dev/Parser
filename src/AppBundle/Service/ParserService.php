@@ -11,13 +11,15 @@ class ParserService
 {
 
     private $em;
+    private $serializer;
 
     /**
      * ParserService constructor.
      */
-    public function __construct(EntityManager $entityManager)
+    public function __construct(EntityManager $entityManager, SerializerBuilder $serializer)
     {
         $this->em = $entityManager;
+        $this->serializer = $serializer;
     }
 
     /**
@@ -63,7 +65,7 @@ xmlns:g="http://base.google.com/ns/1.0">
 EOT;
 
         // Create a serializer instance
-        $serializer = SerializerBuilder::create()->build();
+        $serializer = $this->serializer->create()->build();
 
         // De-serialize XML and get Object with fields
         $channel = $serializer->deserialize($xml, 'AppBundle\Entity\Channel', 'xml');
