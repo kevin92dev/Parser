@@ -2,76 +2,54 @@
 
 namespace AppBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as JMS;
 
-/**
- * @ORM\Entity(repositoryClass="AppBundle\Repository\ProductRepository")
- */
-class Product
+class Item
 {
-
     /**
-     * @ORM\Id
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
-    /**
-     * @ORM\Column(type="string")
+     * @JMS\Type("string")
      */
     private $title;
 
     /**
-     * @ORM\Column(type="string")
+     * @JMS\Type("string")
      */
     private $link;
 
     /**
-     * @ORM\Column(type="string")
+     * @JMS\Type("string")
      */
     private $description;
 
     /**
-     * @ORM\Column(type="string")
+     * @JMS\Type("string")
+     * @JMS\SerializedName("g:image_link")
      */
     private $imageLink;
 
     /**
-     * @ORM\Column(type="decimal", scale=2)
+     * @JMS\Type("double")
+     * @JMS\SerializedName("g:price")
      */
     private $price;
 
     /**
-     * @ORM\Column(type="decimal", scale=2)
+     * @JMS\Type("double")
+     * @JMS\SerializedName("g:reduced_price")
      */
     private $reducedPrice;
 
     /**
-     * @ORM\Column(type="integer")
+     * @JMS\Type("integer")
+     * @JMS\SerializedName("g:ean")
      */
     private $ean;
 
     /**
-     * @ORM\Column(type="integer")
+     * @JMS\Type("integer")
+     * @JMS\SerializedName("g:id")
      */
     private $customId;
-
-    /**
-     * @return mixed
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param mixed $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
 
     /**
      * @return mixed

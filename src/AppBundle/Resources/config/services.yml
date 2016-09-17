@@ -2,3 +2,6 @@ services:
     app.parser:
         class: AppBundle\Service\ParserService
         arguments: ['@doctrine.orm.entity_manager']
+
+    jms.serializer:
+            class: JMS\Serializer\SerializerBuilder

@@ -3,6 +3,9 @@ Parser
 
 Project based on Symfony 3
 
+###Initial configuration/structure of Symfony 3 project with:
+- [**JMS\Serializer**](https://github.com/schmittjoh/serializer)
+
 **How to create the database**
 
 - First we have to create an new empty schema;
