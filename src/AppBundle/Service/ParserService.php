@@ -17,7 +17,7 @@ use Doctrine\ORM\EntityManager;
 use JMS\Serializer\SerializerBuilder;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class ParserService
+class ParserService 
 {
 
     private $em;
