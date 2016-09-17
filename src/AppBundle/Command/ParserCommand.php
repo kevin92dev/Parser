@@ -4,6 +4,7 @@ namespace AppBundle\Command;
 
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 
 class ParserCommand extends ContainerAwareCommand
@@ -21,14 +22,14 @@ EOT
             ->addArgument('url', InputArgument::REQUIRED, 'Feed URL');
     }
 
-    protected function execute(InputInterface $input)
+    protected function execute(InputInterface $input, OutputInterface $output)
     {
         // Get container
         $container = $this->getContainer();
 
         $url = $input->getArgument('url');
 
-        $container->get('app.parser')->downloadProductsFeed($url);
+        $container->get('app.parser')->downloadProductsFeed($output, $url);
     }
 
 }

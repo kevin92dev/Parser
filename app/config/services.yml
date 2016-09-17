@@ -4,9 +4,4 @@ parameters:
 #    parameter_name: value
 
 services:
-    app.parser:
-            class: AppBundle\Service\ParserService
-            public: true
-            arguments: ['@doctrine.orm.entity_manager']
-            tags:
-                - { name: feed.parser }
+    #

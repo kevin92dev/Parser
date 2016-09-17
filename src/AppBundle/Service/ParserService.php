@@ -26,8 +26,10 @@ class ParserService
      *
      * @return void
      */
-    public function downloadProductsFeed($url)
+    public function downloadProductsFeed($output, $url)
     {
+        $output->writeln('Start crawling process. URL: '.$url);
+
         $content = file_get_contents($url);
         $crawler = new Crawler($content);
 
@@ -44,13 +46,8 @@ class ParserService
             $ean          = $node->filterXPath('//g:ean')->text();
             $customId     = $node->filterXPath('//g:id')->text();
 
-            // Check if product exists
-            $product = $this->checkIfProductExists($ean);
-
-            // If returned product isn't instance of Product, create a new one
-            if (!$product instanceof Product) {
-                $product = new Product();
-            }
+            // Get a product for a given EAN
+            $product = $this->getProduct($ean);
 
             // Set data to Product
             $product->setTitle($title);
@@ -68,22 +65,23 @@ class ParserService
     }
 
     /**
-     * Check if product exists.
+     * Check if product exists and return it, if not exists create it.
      *
      * @param integer $ean The EAN code.
      *
-     * @return boolean|Product Return product if it's encountered, false if it cannot encountered
+     * @return Product Return product instance
      */
-    public function checkIfProductExists($ean)
+    public function getProduct($ean)
     {
         if (empty($ean))
-            return false;
+            return new Product();
 
         $product = $this->em->getRepository('AppBundle:Product')->findOneBy(array('ean' => $ean));
 
-        if ($product instanceof Product)
-            return $product;
-        else
-            return false;
+        if (!$product instanceof Product) {
+            $product = new Product();
+        }
+
+        return $product;
     }
 }
